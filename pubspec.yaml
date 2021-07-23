@@ -26,6 +26,7 @@ dependencies:
   # BLoC
   flutter_bloc: ^7.0.1
   equatable: ^2.0.3
+  rive: any
 
 
 dev_dependencies:
