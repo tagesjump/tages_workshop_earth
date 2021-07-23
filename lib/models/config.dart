@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:workshop_earth/models/animation.dart';
+import 'package:tages_workshop_earth/models/animation.dart';
 
 @immutable
 class EarthConfig extends Equatable {
