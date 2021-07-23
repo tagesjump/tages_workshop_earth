@@ -1,0 +1,27 @@
+include: package:lint/analysis_options.yaml
+
+# Правила для линтера
+linter:
+  rules:
+    always_use_package_imports: true
+    sort_constructors_first: true
+    prefer_single_quotes: true
+    flutter_style_todos: true
+
+analyzer:
+  enable-experiment:
+    - non-nullable
+  strong-mode:
+    # Will become the default once non-nullable types land
+    # https://github.com/dart-lang/sdk/issues/31410#issuecomment-510683629
+    implicit-casts: false
+    implicit-dynamic: false
+  errors:
+    # treat missing required parameters as a warning (not a hint)
+    missing_required_param: error
+    # treat missing returns as a warning (not a hint)
+    missing_return: error
+    # allow having TODOs in the code
+    todo: ignore
+    must_be_immutable: error
+    sort_pub_dependencies: ignore
