@@ -10,7 +10,7 @@ class EarthConfig extends Equatable {
   });
 
   factory EarthConfig.def() => EarthConfig(
-        animationPath: 'assets/animations/half_earth.riv',
+        animationPath: 'assets/animations/earth.riv',
         animationList: <Animation>[
           Animation(
             name: 'State 1 Fish',

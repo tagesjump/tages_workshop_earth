@@ -1,6 +1,34 @@
-# TAGES workshop earth
+# Workshop 1. Зал Лекторий. Анимируем Splash экран.
 
-TAGES workshop project.
+Стартовый проект.
+
+## Подготовка Desktop
+
+1. Для запуска Desktop версий дополнительные требования:
+
+- [windows](https://flutter.dev/desktop#additional-windows-requirements)
+- [linux](https://flutter.dev/desktop#additional-linux-requirements)
+- [maxOS](https://flutter.dev/desktop#additional-macos-requirements)
+
+
+2. Активировать поддержку платформы (запускаем 1 команду под свою платформу)
+```shell
+$ flutter config --enable-windows-desktop
+$ flutter config --enable-macos-desktop
+$ flutter config --enable-linux-desktop
+```
+
+3. Проверить наличие устройства:
+```shell
+$ flutter devices
+
+1 connected device:
+
+Windows (desktop) • windows • windows-x64 • Microsoft Windows [Version 10.0.18362.1082]
+macOS (desktop)   • macos   • darwin-x64  • macOS 11.2 20D64 darwin-x64
+Linux (desktop)   • linux   • linux-x64   • Linux
+```
+
 
 ## Getting Started
 
