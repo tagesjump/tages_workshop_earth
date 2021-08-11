@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 import 'package:tages_workshop_earth/services/rive_service.dart';
@@ -10,12 +8,12 @@ import 'package:tages_workshop_earth/services/rive_service.dart';
 part 'earth_state.dart';
 
 class EarthCubit extends Cubit<EarthState> {
-  EarthCubit(this._service)
+  EarthCubit(this._service, Artboard artboard)
       : super(EarthInitialState(
-    _service.riveControllers,
-    _service.animateCount,
-    null,
-  ));
+          _service.riveControllers,
+          _service.animateCount,
+          artboard,
+        ));
 
   final RiveService _service;
 
@@ -25,46 +23,15 @@ class EarthCubit extends Cubit<EarthState> {
   static const _scrollDebounceDuration = Duration(milliseconds: 100);
   static const _animateDebounceDuration = Duration(milliseconds: 300);
 
-  RiveFile? _riveFile;
-
   // Анимация загружена, старт работы логики
   Future<void> started() async {
     if (state is EarthInitialState) {
-      if (state.artboard == null) {
-        // TODO(IgorProkofiev): remove me
-        await Future<void>.delayed(const Duration(seconds: 1));
-
-        await _ensureRiveFile('assets/animations/earth.riv');
-        final artboard = _riveFile!.mainArtboard;
-
-        // TODO(IgorProkofiev): remove me
-        await Future<void>.delayed(const Duration(seconds: 1));
-
-        emit(EarthInitialState(
-          state.controllers,
-          state.animationCount,
-          artboard,
-        ));
-      }
-
       for (final controller in state.controllers) {
-        state.artboard!.addController(controller);
+        state.artboard.addController(controller);
       }
     }
 
     return _debounceAnimate(-1, 0);
-  }
-
-  Future<void> _ensureRiveFile(String path) async {
-    if (_riveFile == null) {
-      try {
-        final data = await rootBundle.load(path);
-        _riveFile = RiveFile.import(data);
-      } catch (e) {
-        debugPrint(e.toString());
-        rethrow;
-      }
-    }
   }
 
   Future<void> _debounceAnimate(int from, int to) async {
@@ -77,7 +44,7 @@ class EarthCubit extends Cubit<EarthState> {
       state.animationCount,
       from,
       to,
-      state.artboard!,
+      state.artboard,
     ));
 
     _animateDebounce = Timer(_animateDebounceDuration, () async {
@@ -86,7 +53,7 @@ class EarthCubit extends Cubit<EarthState> {
       emit(EarthSuccess(
         state.controllers,
         state.animationCount,
-        state.artboard!,
+        state.artboard,
         index,
       ));
     });

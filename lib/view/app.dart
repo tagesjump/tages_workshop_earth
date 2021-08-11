@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         home: BlocBuilder<SplashCubit, SplashState>(
           builder: (context, state) {
             if (state is SplashOnboarding) {
-              return EarthPage(state.earthConfig);
+              return EarthPage(state.earthConfig, state.artboard);
             }
 
             if (state is SplashSuccess) {

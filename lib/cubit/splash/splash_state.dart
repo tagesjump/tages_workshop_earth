@@ -22,12 +22,13 @@ class SplashInProgress extends SplashState {
 
 /// Показываем Onboarding
 class SplashOnboarding extends SplashState {
-  const SplashOnboarding(this.earthConfig) : super();
+  const SplashOnboarding(this.earthConfig, this.artboard) : super();
 
   final EarthConfig earthConfig;
+  final Artboard artboard;
 
   @override
-  List<Object> get props => [earthConfig];
+  List<Object> get props => [earthConfig, artboard];
 }
 
 /// Показ Splash завершен, показываем приложение

@@ -10,14 +10,15 @@ import 'package:tages_workshop_earth/models/config.dart';
 import 'package:tages_workshop_earth/services/rive_service.dart';
 
 class EarthPage extends StatelessWidget {
-  const EarthPage(this._config);
+  const EarthPage(this._config, this._artboard);
 
   final EarthConfig _config;
+  final Artboard _artboard;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<EarthCubit>(
-      create: (context) => EarthCubit(RiveService(_config))..started(),
+      create: (context) => EarthCubit(RiveService(_config), _artboard)..started(),
       child: Scaffold(
         body: SafeArea(
           top: false,
@@ -30,10 +31,6 @@ class EarthPage extends StatelessWidget {
   }
 
   Widget _buildEarth(BuildContext context, EarthState state) {
-    if (state.artboard == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
     return Stack(
       children: [
         GestureDetector(
@@ -47,7 +44,7 @@ class EarthPage extends StatelessWidget {
             }
           },
           child: Rive(
-            artboard: state.artboard!,
+            artboard: state.artboard,
             fit: BoxFit.cover,
           ),
         ),

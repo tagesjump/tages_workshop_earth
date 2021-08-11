@@ -9,10 +9,10 @@ abstract class EarthState extends Equatable {
 
   final List<RiveAnimationController> controllers;
   final int animationCount;
-  final Artboard? artboard;
+  final Artboard artboard;
 
   @override
-  List<Object?> get props => [controllers, animationCount, artboard];
+  List<Object> get props => [controllers, animationCount, artboard];
 }
 
 // Начальное состояние (анимация не загружена)
@@ -20,7 +20,7 @@ class EarthInitialState extends EarthState {
   const EarthInitialState(
     List<RiveAnimationController> controllers,
     int animationCount,
-    Artboard? artboard,
+    Artboard artboard,
   ) : super(controllers, animationCount, artboard);
 }
 
