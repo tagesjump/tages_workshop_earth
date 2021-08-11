@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 import 'package:tages_workshop_earth/cubit/earth/earth_cubit.dart';
+import 'package:tages_workshop_earth/cubit/splash/splash_cubit.dart';
 import 'package:tages_workshop_earth/models/config.dart';
 import 'package:tages_workshop_earth/services/rive_service.dart';
-import 'package:tages_workshop_earth/view/home/home_page.dart';
 
 class EarthPage extends StatelessWidget {
   const EarthPage(this._config);
@@ -77,10 +77,7 @@ class EarthPage extends StatelessWidget {
                     text: 'Начать',
                     icon: const Icon(Icons.home),
                     onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute<void>(
-                            builder: (context) => HomePage()),
-                      );
+                      context.splashCubit.onboardingCompleted();
                     },
                   ),
               ],

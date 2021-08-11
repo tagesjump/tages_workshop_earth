@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tages_workshop_earth/models/config.dart';
-import 'package:tages_workshop_earth/view/earth/earth_page.dart';
+import 'package:tages_workshop_earth/cubit/splash/splash_cubit.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -17,10 +16,7 @@ class HomePage extends StatelessWidget {
             const Flexible(child: FractionallySizedBox(heightFactor: 0.1)),
             ElevatedButton.icon(
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute<void>(
-                      builder: (context) => EarthPage(EarthConfig.def())),
-                );
+                context.splashCubit.restarted();
               },
               icon: const Icon(Icons.arrow_back),
               label: const Text('С начала...'),
