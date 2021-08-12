@@ -12,20 +12,48 @@ class SplashCubit extends Cubit<SplashState> {
 
   RiveFile? _riveFile;
 
+  @override
+  Future<void> close() {
+    final state = this.state;
+    if (state is SplashInProgress) {
+      try {
+        state.controller.dispose();
+      } catch (_) {}
+    }
+    return super.close();
+  }
+
   /// Событие показа Splash экрана
-  Future<void> started() async {
+  Future<void> started(TickerProvider vsync) async {
     if (state is SplashInProgress) {
       return;
     }
 
-    emit(const SplashInProgress());
+    final controller = AnimationController(
+      vsync: vsync,
+      duration: const Duration(milliseconds: 3000),
+    );
 
-    await Future.wait([
-      _ensureRiveFile('assets/animations/earth.riv'),
-      Future<void>.delayed(const Duration(seconds: 1)),
-    ]);
+    emit(SplashInProgress(controller));
+
+    try {
+      await controller.animateTo(0.5).orCancel;
+
+      await Future.wait([
+        _ensureRiveFile('assets/animations/earth.riv'),
+        Future<void>.delayed(const Duration(seconds: 1)),
+      ]);
+
+      await controller.animateTo(1.0).orCancel;
+    } on TickerCanceled {
+      // pass
+    } catch (_) {}
+
+    try {
+      controller.dispose();
+    } catch (_) {}
+
     final artboard = _riveFile!.mainArtboard;
-
     emit(SplashOnboarding(EarthConfig.def(), artboard));
   }
 

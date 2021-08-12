@@ -14,10 +14,12 @@ class SplashInitial extends SplashState {
 
 /// Показываем Splash экран и грузим данные
 class SplashInProgress extends SplashState {
-  const SplashInProgress() : super();
+  const SplashInProgress(this.controller) : super();
+
+  final AnimationController controller;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [controller];
 }
 
 /// Показываем Onboarding
